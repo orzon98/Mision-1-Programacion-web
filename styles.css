@@ -52,25 +52,26 @@ p{
     background-color: green;
     border: none;
     cursor: pointer;
+    
 }
 
 #rojo{
     border-top-right-radius: 200px;
-    background-color: red;
+    background-color: #E31B1B;
     border: none;
     cursor: pointer;
 }
 
 #amarillo{
     border-bottom-left-radius: 200px;
-    background-color: yellow;
+    background-color: #EFF03C;
     border: none;
     cursor: pointer;
 }
 
 #azul{
     border-bottom-right-radius: 200px;
-    background-color: blue;
+    background-color: #3368F2;
     border: none;
     cursor: pointer;
 }
@@ -99,4 +100,9 @@ p{
     padding: 10px;
     border-radius: 200px;
     border: 1px solid #fff;
+}
+
+.activo{
+    transform: scale(1.05);
+    filter: brightness(1.35);
 }
