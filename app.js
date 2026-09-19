@@ -46,14 +46,17 @@ function encenderBoton(color){
 }
 
 let intervalo;
+let puedeJugar;
 
 function reproducirSecuencia(){
     let i = 0;
+    puedeJugar = false;
     intervalo = setInterval(function(){
         encenderBoton(secuencia[i]);
         i++;
         if(i >= secuencia.length){
-            clearInterval(intervalo)
+            clearInterval(intervalo);
+            puedeJugar = true;
         }
     }, 900);
 }
@@ -63,18 +66,47 @@ function obtenerColor(){
     return Math.floor(Math.random() * colores.length);
 }
 
+let secuenciaJugador = [];
+
 function siguienteNivel(){
     cont++;
     nivel.innerHTML=cont;
+    secuenciaJugador = [];
 
     let indiceAleatorio = obtenerColor();
     let colorSeleccionado = colores[indiceAleatorio];
 
     secuencia.push(colorSeleccionado);
 
-    console.log("Color añadido:", colorSeleccionado.id);
-    console.log("Secuencia actual:", secuencia.map(b => b.id));
-
     reproducirSecuencia();
-
 }
+
+function jugadorPulsa(color){
+    if(!puedeJugar) return;
+
+    encenderBoton(color);
+    secuenciaJugador.push(color);
+
+    let posicion = secuenciaJugador.length - 1;
+
+    if(secuenciaJugador[posicion] !== secuencia[posicion]){
+        perder();
+        return;
+    }
+
+    if(secuenciaJugador.length === secuencia.length){
+        puedeJugar = false;
+        setTimeout(siguienteNivel, 1000);
+    }
+}
+
+function perder(){
+    puedeJugar = false;
+    alert("Has perdido. Llegaste al nivel: " + cont);
+}
+
+verde.addEventListener("click", function(){ jugadorPulsa(verde); });
+rojo.addEventListener("click", function(){ jugadorPulsa(rojo); });
+amarillo.addEventListener("click", function(){ jugadorPulsa(amarillo); });
+azul.addEventListener("click", function(){ jugadorPulsa(azul); });
+
