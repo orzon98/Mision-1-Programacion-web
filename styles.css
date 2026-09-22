@@ -90,6 +90,11 @@ p{
     transform: scale(0.95);
 }
 
+.texto{
+    font-family: sans-serif;
+    font-size: 30px;
+}
+
 #contenedor{
     width: 400px;
     height: 400px;
