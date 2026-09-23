@@ -36,6 +36,12 @@ function modoOscuro(){
     modoOscuroActivo = !modoOscuroActivo;
 }
 
+document.addEventListener("keydown", function(evento){
+    if(evento.key.toLowerCase() === 'n'){
+        modoOscuro();
+    }
+})
+
 //Variable para guardar los colores
 let colores = [rojo, verde, amarillo, azul];
 
@@ -127,7 +133,7 @@ function jugadorPulsa(color){
 //Funcion para mandar una alerta cuando se pierde
 function perder(){
     puedeJugar = false;
-    alert("Has perdido. Llegaste al nivel: " + cont);
+    alert(`Has perdido. Llegaste al nivel: ${cont}`);
 }
 
 //Se asocia a cada boton de color un evento de clic que llama a jugadorPulsa pasandole ese color
