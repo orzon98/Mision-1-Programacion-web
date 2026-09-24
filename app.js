@@ -14,33 +14,16 @@ let modoOscuroActivo = false;
 
 //Funcion para resetear el nivel y para empezar el juego
 function empezar(){
-    nivel.innerHTML=0;
+    nivel.textContent=0;
     cont = 0;
     secuencia = [];
     siguienteNivel();
 }
 
-//Funcion para activar y desactivar el modo oscuro
+//Funcion modo oscuro pero ahora usando classList
 function modoOscuro(){
-    if(!modoOscuroActivo){
-        document.body.style.backgroundImage = "url('/img/fondo_oscuro.jpg')";
-        btn_simon.style.color = "#fff";
-        nivel.style.color = "#fff";
-        letras_nivel.style.color = "#fff"; 
-    }else{
-        document.body.style.backgroundImage = "url('/img/fondo_blanco.jpg')";
-        btn_simon.style.color = "#000";
-        nivel.style.color = "#000";
-        letras_nivel.style.color = "#000";
-    }
-    modoOscuroActivo = !modoOscuroActivo;
+    document.body.classList.toggle("oscuro");
 }
-
-document.addEventListener("keydown", function(evento){
-    if(evento.key.toLowerCase() === 'n'){
-        modoOscuro();
-    }
-})
 
 //Variable para guardar los colores
 let colores = [rojo, verde, amarillo, azul];
@@ -55,7 +38,6 @@ function encenderBoton(color){
         color.classList.remove("activo")
     }, 500);
 }
-
 
 let intervalo;
 let puedeJugar;
@@ -136,9 +118,19 @@ function perder(){
     alert(`Has perdido. Llegaste al nivel: ${cont}`);
 }
 
+
+
 //Se asocia a cada boton de color un evento de clic que llama a jugadorPulsa pasandole ese color
 verde.addEventListener("click", function(){ jugadorPulsa(verde); });
 rojo.addEventListener("click", function(){ jugadorPulsa(rojo); });
 amarillo.addEventListener("click", function(){ jugadorPulsa(amarillo); });
 azul.addEventListener("click", function(){ jugadorPulsa(azul); });
+
+btn_start.addEventListener("click", function(){empezar()});
+
+document.addEventListener("keydown", function(evento){
+    if(evento.key.toLowerCase() === 'n'){
+        modoOscuro();
+    }
+});
 

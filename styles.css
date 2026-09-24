@@ -110,6 +110,18 @@ p{
     filter: brightness(1.35);
 }
 
+body.oscuro{
+    background-image: url(/img/fondo_oscuro.jpg);
+}
+
+body.oscuro #titulo{
+    color: #fff;
+}
+
+body.oscuro .texto{
+    color: #fff;
+}
+
 
 @font-face {
     font-family: "azonix";
