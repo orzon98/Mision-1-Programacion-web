@@ -1,13 +1,13 @@
-let btn_simon = document.getElementById("titulo");
-let btn_start = document.getElementById("start");
+const btn_simon = document.getElementById("titulo");
+const btn_start = document.getElementById("start");
 
-let verde = document.getElementById("verde");
-let rojo = document.getElementById("rojo");
-let amarillo = document.getElementById("amarillo");
-let azul = document.getElementById("azul");
+const verde = document.getElementById("verde");
+const rojo = document.getElementById("rojo");
+const amarillo = document.getElementById("amarillo");
+const azul = document.getElementById("azul");
 
-let nivel = document.getElementById("nivel");
-let letras_nivel = document.getElementById("textoNivel")
+const nivel = document.getElementById("nivel");
+const letras_nivel = document.getElementById("textoNivel")
 
 let cont = 0;
 let modoOscuroActivo = false;
@@ -72,7 +72,7 @@ let secuenciaJugador = [];
 //Funcion para avanzar de nivel
 function siguienteNivel(){
     cont++;
-    nivel.innerHTML=cont;
+    nivel.textContent=cont;
 
     secuenciaJugador = [];
 
@@ -118,13 +118,10 @@ function perder(){
     alert(`Has perdido. Llegaste al nivel: ${cont}`);
 }
 
-
-
-//Se asocia a cada boton de color un evento de clic que llama a jugadorPulsa pasandole ese color
-verde.addEventListener("click", function(){ jugadorPulsa(verde); });
-rojo.addEventListener("click", function(){ jugadorPulsa(rojo); });
-amarillo.addEventListener("click", function(){ jugadorPulsa(amarillo); });
-azul.addEventListener("click", function(){ jugadorPulsa(azul); });
+//forEach del array colores para no repetir mucho codigo, asocia cada color a la función
+colores.forEach(function(elemento){
+    elemento.addEventListener("click", function(){ jugadorPulsa(elemento); });
+});
 
 btn_start.addEventListener("click", function(){empezar()});
 
