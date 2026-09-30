@@ -1,4 +1,3 @@
-const btn_simon = document.getElementById("titulo");
 const btn_start = document.getElementById("start");
 
 const verde = document.getElementById("verde");
@@ -7,7 +6,6 @@ const amarillo = document.getElementById("amarillo");
 const azul = document.getElementById("azul");
 
 const nivel = document.getElementById("nivel");
-const letras_nivel = document.getElementById("textoNivel")
 
 let cont = 0;
 let modoOscuroActivo = false;
