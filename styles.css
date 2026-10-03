@@ -10,7 +10,7 @@ body{
     height: 100vh;
     display: grid;
     place-items: center;
-    background-image: url("/img/fondo_blanco.jpg");
+    background-image: url("img/fondo_blanco.jpg");
     background-size: cover;
     font-family: "azonix";
     
@@ -110,8 +110,12 @@ p{
     filter: brightness(1.35);
 }
 
+.oculto{
+    display: none;
+}
+
 body.oscuro{
-    background-image: url(/img/fondo_oscuro.jpg);
+    background-image: url(img/fondo_oscuro.jpg);
 }
 
 body.oscuro #titulo{
@@ -125,10 +129,5 @@ body.oscuro .texto{
 
 @font-face {
     font-family: "azonix";
-    src: url(/fonts/Azonix.otf);
-}
-
-@font-face {
-    font-family: "milker";
-    src: url(/fonts/Azonix.otf);
+    src: url(fonts/Azonix.otf);
 }

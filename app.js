@@ -8,6 +8,8 @@ const azul = document.getElementById("azul");
 const colores = [rojo, verde, amarillo, azul];
 const nivel = document.getElementById("nivel");
 
+const resultado = document.getElementById("resultado");
+
 //Objeto para guardar el estado de la partida
 const estado = {
     secuencia: [],
@@ -21,10 +23,11 @@ let modoOscuroActivo = false;
 
 //Funcion para resetear el nivel y para empezar el juego
 function empezar(){
-    clearInterval(estado.intervalo);
     nivel.textContent=0;
     cont = 0;
     estado.secuencia = [];
+    resultado.replaceChildren();
+    btn_start.classList.add("oculto");
     siguienteNivel();
 }
 
@@ -113,7 +116,14 @@ function jugadorPulsa(color){
 //Funcion para mandar una alerta cuando se pierde
 function perder(){
     estado.puedeJugar = false;
-    alert(`Has perdido. Llegaste al nivel: ${cont}`);
+
+    const texto = document.createElement("p");
+    texto.classList.add("texto");
+    texto.textContent = `Has perdido. Llegaste al nivel: ${cont}`;
+    resultado.appendChild(texto);
+
+    btn_start.textContent = "Reiniciar";
+    btn_start.classList.remove("oculto");
 }
 
 //forEach del array colores para no repetir mucho codigo, asocia cada color a la función
