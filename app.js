@@ -5,16 +5,26 @@ const rojo = document.getElementById("rojo");
 const amarillo = document.getElementById("amarillo");
 const azul = document.getElementById("azul");
 
+const colores = [rojo, verde, amarillo, azul];
 const nivel = document.getElementById("nivel");
+
+//Objeto para guardar el estado de la partida
+const estado = {
+    secuencia: [],
+    secuenciaJugador: [],
+    puedeJugar: false,
+    intervalo: null,
+};
 
 let cont = 0;
 let modoOscuroActivo = false;
 
 //Funcion para resetear el nivel y para empezar el juego
 function empezar(){
+    clearInterval(estado.intervalo);
     nivel.textContent=0;
     cont = 0;
-    secuencia = [];
+    estado.secuencia = [];
     siguienteNivel();
 }
 
@@ -22,9 +32,6 @@ function empezar(){
 function modoOscuro(){
     document.body.classList.toggle("oscuro");
 }
-
-//Variable para guardar los colores
-let colores = [rojo, verde, amarillo, azul];
 
 //Funcion para encender un boton
 function encenderBoton(color){
@@ -37,48 +44,41 @@ function encenderBoton(color){
     }, 500);
 }
 
-let intervalo;
-let puedeJugar;
-
 //Funcion que reproduce la secuencia de colores
 function reproducirSecuencia(){
     let i = 0;
     //Mientras se reproduce la secuencia, el jugador no puede jugar (se bloquea con puedeJugar)
-    puedeJugar = false;
+    estado.puedeJugar = false;
 
     //Enciende todos los botones de la secuencia actual y espera 900ms para avanzar de nivel
-    intervalo = setInterval(function(){
-        encenderBoton(secuencia[i]);
+    estado.intervalo = setInterval(function(){
+        encenderBoton(estado.secuencia[i]);
         i++;
         //Cuando i llega a la longitud de secuencia significa que ya se ha llegado al final por lo que puede empezar a jugar el jugador
-        if(i >= secuencia.length){
-            clearInterval(intervalo);
-            puedeJugar = true;
+        if(i >= estado.secuencia.length){
+            clearInterval(estado.intervalo);
+            estado.puedeJugar = true;
         }
     }, 900);
 }
-
-let secuencia = [];
 
 //Funcion para obtener un color de forma aleatoria
 function obtenerColor(){
     return Math.floor(Math.random() * colores.length);
 }
 
-let secuenciaJugador = [];
-
 //Funcion para avanzar de nivel
 function siguienteNivel(){
     cont++;
     nivel.textContent=cont;
 
-    secuenciaJugador = [];
+    estado.secuenciaJugador = [];
 
     //Se elige un color aleatorio y se introduce en el array secuencia
     let indiceAleatorio = obtenerColor();
     let colorSeleccionado = colores[indiceAleatorio];
 
-    secuencia.push(colorSeleccionado);
+    estado.secuencia.push(colorSeleccionado);
 
     //Por ultimo se llama a la funcion de reproducir secuencia para que ilumine los colores
     reproducirSecuencia();
@@ -87,32 +87,32 @@ function siguienteNivel(){
 //Funcion para implementar la jugabilidad del usuario
 function jugadorPulsa(color){
     //Si la maquina sigue reproduciendo la secuencia se ignoran los clicks
-    if(!puedeJugar) return;
+    if(!estado.puedeJugar) return;
 
     //Cuando el jugador pulsa llamamos a encenderBoton para que se vea cual ha pulsado
     encenderBoton(color);
     //Se mete el color en el array del usuario 
-    secuenciaJugador.push(color);
+    estado.secuenciaJugador.push(color);
 
     //Variable que guarda el indice del ultimo elemento que el jugador acaba de añadir a secuenciaJugador
-    let posicion = secuenciaJugador.length - 1;
+    let posicion = estado.secuenciaJugador.length - 1;
 
     //Se comprueba si el color que ha pulsado el jugador es el mismo que el de la secuencia y sino pierde
-    if(secuenciaJugador[posicion] !== secuencia[posicion]){
+    if(estado.secuenciaJugador[posicion] !== estado.secuencia[posicion]){
         perder();
         return;
     }
 
     //Si la longitud es la misma se avanza de nivel
-    if(secuenciaJugador.length === secuencia.length){
-        puedeJugar = false;
+    if(estado.secuenciaJugador.length === estado.secuencia.length){
+        estado.puedeJugar = false;
         setTimeout(siguienteNivel, 1000);
     }
 }
 
 //Funcion para mandar una alerta cuando se pierde
 function perder(){
-    puedeJugar = false;
+    estado.puedeJugar = false;
     alert(`Has perdido. Llegaste al nivel: ${cont}`);
 }
 
